@@ -133,13 +133,13 @@
 	            tableLineWidth: 1
 
 	        });
-	        pdf.save('ChozaTraders.pdf');
-	       // var string = pdf.output('datauristring');
-	       // var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-	       // var x = window.open();
-	       // x.document.open();
-	       // x.document.write(embed);
-	       // x.document.close();
+	       // pdf.save('ChozaTraders.pdf');
+	        var string = pdf.output('datauristring');
+	        var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+	        var x = window.open();
+	        x.document.open();
+	        x.document.write(embed);
+	        x.document.close();
 
 	    }
 
@@ -147,8 +147,9 @@
     </script>
 
     <script>
+        var totalAmount = 0;
         $(document).ready(function () {
-            var totalAmount = 0;
+           
 
             $('#addRow').click(function () {
 
@@ -159,7 +160,7 @@
 
                 if (product !== "" && quantity !== "" && price !== "") {
                     // Add a new row to the table
-                    var newRow = $('<tr><td>' + product + '</td><td>' + parseFloat(quantity).toFixed(1) + '</td><td>' + parseFloat(price).toFixed(2) + '</td><td>' + parseFloat(amount).toFixed(2) + '</td><td><button class="deleteRow">Delete</button></td></tr>');
+                    var newRow = $('<tr><td>' + product + '</td><td>' + parseFloat(quantity).toFixed(0) + '</td><td>' + parseFloat(price).toFixed(2) + '</td><td>' + parseFloat(amount).toFixed(2) + '</td><td><button class="deleteRow">Delete</button></td></tr>');
                     $('#simple_table tbody').append(newRow);
 
                     // Update the total amount
@@ -180,12 +181,21 @@
             // Delete a row
             $('#simple_table').on('click', '.deleteRow', function () {
                 var row = $(this).closest('tr');
-                var amount = parseFloat(row.find('td').eq(4).text());
-                totalAmount = parseFloat(totalAmount) - amount;
-                $('#total').text(totalAmount.toFixed(2));
+                var amount = parseFloat(row.find('td').eq(3).text());
+                totalAmount = (parseFloat(totalAmount)) - amount;
+                $('#total').text((parseFloat($('#GstTax').val())+totalAmount).toFixed(2));
                 row.remove();
             });
         });
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode!=46) {
+                return false;
+            }
+            return true;
+        }
 
         function Calculate() {
             var sum = 0;
@@ -425,15 +435,15 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
          </div>
           <div class="input-group">
           <label class="label">Quantity:</label>
-             <input type="text" id="quantity" class="input-field" placeholder="Quantity">
+             <input type="text" id="quantity" onkeypress="return isNumber(event)" class="input-field" placeholder="Quantity">
           </div>
            <div class="input-group">
           <label class="label">Price:</label>
-          <input type="text" id="price" class="input-field" placeholder="Price">
+          <input type="text" id="price" onkeypress="return isNumber(event)" class="input-field" placeholder="Price">
          </div>
          <div class="input-group">
           <label class="label">GST:</label>
-    <input type="text" id="GstTax"  class="input-field" placeholder="GstTax"></div>
+    <input type="text" id="GstTax" onkeypress="return isNumber(event)"  class="input-field" placeholder="GstTax"></div>
     <div class="input-group">
     <button style="margin-left:150px;" class="custom-btn btn-1" id="addRow">Add Row</button></div>
 
