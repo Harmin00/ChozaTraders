@@ -57,7 +57,7 @@
 	        pdf.setTextColor(0, 0, 0);
 	        pdf.setFont(undefined, "normal");
 	        pdf.setFontSize(11);
-	        var CName = "Date : 08/11/2023";
+	        var CName = "Date : " + GetDate();
 	        pdf.text(CName, 165, 53);
 
 	        pdf.setTextColor(0, 0, 0);
@@ -114,10 +114,6 @@
 	        pdf.setFont(undefined, "normal");
 	        pdf.text($("#ad4").val(), 120, 89);
 
-	      
-
-
-
 	        pdf.autoTable({
 	            html: '#simple_table',
 	            startY: 100,
@@ -137,13 +133,13 @@
 	            tableLineWidth: 1
 
 	        });
-	        pdf.save('ChozaTraders.pdf');
-	       // var string = pdf.output('datauristring');
-	        //var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-	        //var x = window.open();
-	        //x.document.open();
-	        //x.document.write(embed);
-	        //x.document.close();
+	       // pdf.save('ChozaTraders.pdf');
+	        var string = pdf.output('datauristring');
+	        var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+	        var x = window.open();
+	        x.document.open();
+	        x.document.write(embed);
+	        x.document.close();
 
 	    }
 
@@ -202,6 +198,18 @@
             var gst = $('#GstTax').val();
             var Gtotal = parseFloat(gst) + parseFloat(sum);
             $('#total').text(Gtotal.toFixed(2));
+        }
+        function GetDate() {
+            var today = new Date();
+var yyyy = today.getFullYear();
+            var mm = today.getMonth() + 1; // Months start at 0!
+            var dd = today.getDate();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+
+var formattedToday = dd + '/' + mm + '/' + yyyy;
+return formattedToday;
         }
     </script>
     <style>
