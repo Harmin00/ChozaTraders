@@ -133,13 +133,13 @@
 	            tableLineWidth: 1
 
 	        });
-	       // pdf.save('ChozaTraders.pdf');
-	        var string = pdf.output('datauristring');
-	        var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-	        var x = window.open();
-	        x.document.open();
-	        x.document.write(embed);
-	        x.document.close();
+	        pdf.save('ChozaTraders.pdf');
+	       // var string = pdf.output('datauristring');
+	       // var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+	       // var x = window.open();
+	       // x.document.open();
+	       // x.document.write(embed);
+	       // x.document.close();
 
 	    }
 
@@ -463,7 +463,7 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
             <tr>
                 <td colspan="2"></td>
                 <td class="auto-style3">Total</td>
-                <td id="total" class="auto-style4">0.00</td>
+                <td id="Total" class="auto-style4">0.00</td>
                 <td class="auto-style5" ></td>
             </tr>
         </tfoot>
