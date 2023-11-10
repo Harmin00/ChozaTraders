@@ -39,7 +39,7 @@
 	        pdf.setFont(undefined, "normal");
 	        pdf.setFontSize(10);
 	        pdf.text(address1, 62, 33); //30
-	        var address2 = "Cell:997998991";
+	        var address2 = "Cell:+919997998991";
 	        pdf.setTextColor(255, 56, 43);
 	        pdf.setFont(undefined, "normal");
 	        pdf.setFontSize(10);
@@ -57,7 +57,7 @@
 	        pdf.setTextColor(0, 0, 0);
 	        pdf.setFont(undefined, "normal");
 	        pdf.setFontSize(11);
-	        var CName = "Date : " + GetDate();
+	        var CName = "Date : " + $("#Idate").val();
 	        pdf.text(CName, 165, 53);
 
 	        pdf.setTextColor(0, 0, 0);
@@ -133,13 +133,13 @@
 	            tableLineWidth: 1
 
 	        });
-	      //  pdf.save('ChozaTraders.pdf');
-	        var string = pdf.output('datauristring');
-	        var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-	        var x = window.open();
-	        x.document.open();
-	        x.document.write(embed);
-	        x.document.close();
+	        pdf.save('ChozaTraders.pdf');
+	        //var string = pdf.output('datauristring');
+	        //var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+	        //var x = window.open();
+	        //x.document.open();
+	        //x.document.write(embed);
+	        //x.document.close();
 
 	    }
 
@@ -188,7 +188,7 @@
             });
         });
 
-     function isNumber(evt) {
+        function isNumber(evt) {
             var charCode = (typeof evt.which === "undefined") ? evt.keyCode : evt.which;
             var key = String.fromCharCode(charCode);
 
@@ -273,7 +273,7 @@ return formattedToday;
 
 
         input[type=text]{
-    width:20%;
+    width:40%;
     border:2px solid #aaa;
     border-radius:4px;
     margin:8px 0;
@@ -416,7 +416,7 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
       <div class="container">
         <div class="input-group">
             <label class="label">Name:</label><br />
-            <input type="text" id="ConName" class="input-field" placeholder="Enter Consignee name.">
+            <input type="text" id="ConName" class="input-field" placeholder="Enter Consignee name">
         </div>
         <div class="input-group">
             <label class="label">Address1:</label>
@@ -449,7 +449,25 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
          </div>
          <div class="input-group">
           <label class="label">GST:</label>
-    <input type="text" id="GstTax" onkeypress="return isNumber(event)"  class="input-field" placeholder="GstTax"></div>
+    <input type="text" id="GstTax" onkeypress="return isNumber(event)"  class="input-field" placeholder="GstTax">
+
+                       <label class="label">Date:</label>
+             <input
+                 id="Idate"
+    type="text"
+    name="date"
+    placeholder="DD/MM/YYYY"
+    onkeyup="
+        var v = this.value;
+        if (v.match(/^\d{2}$/) !== null) {
+            this.value = v + '/';
+        } else if (v.match(/^\d{2}\/\d{2}$/) !== null) {
+            this.value = v + '/';
+       }"
+    maxlength="10"
+>
+         </div>
+
     <div class="input-group">
     <button style="margin-left:150px;" class="custom-btn btn-1" id="addRow">Add Row</button></div>
 
