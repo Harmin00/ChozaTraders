@@ -88,7 +88,7 @@
 	        var CName = "Declared Name & Address of Consignee";
 	        pdf.text(CName, 120, 62);
 
-	       
+
 	        pdf.setFontSize(14);
 	        var CName = "RMMK ENTERPRISE";
 	        pdf.setFont(undefined, "bold");
@@ -149,10 +149,10 @@
     <script>
         var totalAmount = 0;
         $(document).ready(function () {
-           
+
 
             $('#addRow').click(function () {
-
+              
                 var product = $('#product').val();
                 var quantity = $('#quantity').val();
                 var price = $('#price').val();
@@ -160,14 +160,14 @@
 
                 if (product !== "" && quantity !== "" && price !== "") {
                     // Add a new row to the table
-                    var newRow = $('<tr><td>' + product + '</td><td>' + parseFloat(quantity).toFixed(0) + '</td><td>' + parseFloat(price).toFixed(2) + '</td><td>' + parseFloat(amount).toFixed(2) + '</td><td><button class="deleteRow">Delete</button></td></tr>');
+                    var newRow = $('<tr><td>' + product + '</td><td>' + parseFloat(quantity).toFixed(0) + '</td><td>' + parseFloat(price).toFixed(2) + '</td><td>' + GetCurrency() + parseFloat(amount).toFixed(2) + '</td><td><button class="deleteRow">Delete</button></td></tr>');
                     $('#simple_table tbody').append(newRow);
 
                     // Update the total amount
                     totalAmount = parseFloat(totalAmount) + parseFloat(amount);
                     var gstval = parseFloat($('#GstTax').val());
-                    $('#gst').text(gstval.toFixed(2));
-                    $('#total').text((gstval + totalAmount).toFixed(2));
+                    $('#gst').text(GetCurrency() + gstval.toFixed(2));
+                    $('#total').text(GetCurrency() + (gstval + totalAmount).toFixed(2));
 
                     // Clear input values
                     $('#sno').val('');
@@ -183,10 +183,15 @@
                 var row = $(this).closest('tr');
                 var amount = parseFloat(row.find('td').eq(3).text());
                 totalAmount = (parseFloat(totalAmount)) - amount;
-                $('#total').text((parseFloat($('#GstTax').val())+totalAmount).toFixed(2));
+                $('#total').text(GetCurrency() + (parseFloat($('#GstTax').val()) + totalAmount).toFixed(2));
                 row.remove();
             });
         });
+
+
+        function GetCurrency() {
+            return  $("#myselect option:selected").text().split(":")[1]+ " ";
+        }
 
         function isNumber(evt) {
             var charCode = (typeof evt.which === "undefined") ? evt.keyCode : evt.which;
@@ -206,26 +211,26 @@
         function Calculate() {
             var sum = 0;
             $('#simple_table tbody tr').each(function () {
-                var value = parseInt($(this).find('td:eq(3)').text(), 10); // 1 corresponds to the second column (0-based index)
+                var value = parseFloat($(this).find('td:eq(3)').text().replace(/[^0-9.]/g, ''), 10); // 1 corresponds to the second column (0-based index)
                 if (!isNaN(value)) {
                     sum += value;
                 }
             });
-            var gst = $('#GstTax').val();
+            var gst = $('#GstTax').val().replace(/[^0-9.]/g, '');
             var Gtotal = parseFloat(gst) + parseFloat(sum);
-            $('#total').text(Gtotal.toFixed(2));
+            $('#total').text(GetCurrency() + Gtotal.toFixed(2));
         }
         function GetDate() {
             var today = new Date();
-var yyyy = today.getFullYear();
+            var yyyy = today.getFullYear();
             var mm = today.getMonth() + 1; // Months start at 0!
             var dd = today.getDate();
 
             if (dd < 10) dd = '0' + dd;
             if (mm < 10) mm = '0' + mm;
 
-var formattedToday = dd + '/' + mm + '/' + yyyy;
-return formattedToday;
+            var formattedToday = dd + '/' + mm + '/' + yyyy;
+            return formattedToday;
         }
     </script>
     <style>
@@ -441,16 +446,15 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
          </div>
           <div class="input-group">
           <label class="label">Quantity:</label>
-             <input type="text" id="quantity" onkeypress="return isNumber(event)" class="input-field" placeholder="Quantity">
+             <input type="text" id="quantity"  class="input-field" placeholder="Quantity">
           </div>
            <div class="input-group">
           <label class="label">Price:</label>
-          <input type="text" id="price" onkeypress="return isNumber(event)" class="input-field" placeholder="Price">
+          <input type="text" id="price"  class="input-field" placeholder="Price">
          </div>
          <div class="input-group">
           <label class="label">GST:</label>
-    <input type="text" id="GstTax" onkeypress="return isNumber(event)"  class="input-field" placeholder="GstTax">
-
+    <input type="text" id="GstTax"   class="input-field" placeholder="GstTax">
                        <label class="label">Date:</label>
              <input
                  id="Idate"
@@ -467,6 +471,26 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
     maxlength="10"
 >
          </div>
+                 <div class="input-group">
+          <label class="label">Currency:</label>
+<select id="myselect" style="font-size:15pt;" class="input-field" >
+<option>Australia:AU$</option>
+<option>Canada:CA$</option>
+<option>China:¥</option>
+<option>European Union:€</option>
+<option>Hong Kong:HK$</option>
+<option>India:₹</option>
+<option>Japan:¥</option>
+<option>Malaysia:RM</option>
+<option>Norway:kr</option>
+<option>Singapore:S$</option>
+<option>Saudi Arabia:SAR</option>
+<option>Sweden:kr</option>
+<option>Turkey:₺</option>
+<option>United States:$</option>
+<option>United Kingdom:£</option>
+</select>
+</div>
 
     <div class="input-group">
     <button style="margin-left:150px;" class="custom-btn btn-1" id="addRow">Add Row</button></div>
@@ -509,4 +533,3 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
 
 </body>
 </html>
-
