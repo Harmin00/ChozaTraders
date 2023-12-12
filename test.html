@@ -134,14 +134,21 @@
 
 	        });
 	       // pdf.save('ChozaTraders.pdf');
-	        var string = pdf.output('datauristring');
-	        var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
-		    x = window.open(string, '_system');
+	      //  var string = pdf.output('datauristring');
+	      //  var embed = "<embed width='100%' height='100%' src='" + string + "'/>"
+		//    x = window.open(string, '_system');
 	      //  var x = window.open();
 	      //  x.document.open();
 	       // x.document.write(embed);
 	        //x.document.close();
 
+		     //var string1 = new Blob([pdf.output()]);
+		     var string = pdf.output('blob');
+              var a = document.createElement('a');
+            a.href = URL.createObjectURL(string); 
+            a.download = "Image.pdf"; 
+            document.getElementById('link').appendChild(a);
+                    a.click();
 	    }
 
 
@@ -531,6 +538,8 @@ background: linear-gradient(to top, #A7CFDF 0%, #23538A 96%);
      <button id="Calculate" class="custom-btn btn-1" onclick="Calculate();">Calculate</button> 
     
      <button id="Generate Invoice" class="custom-btn btn-1" onclick="four();">GenerateInvoice</button>
-
+	<br/>
+    Link:
+    <p id="link"></p>
 </body>
 </html>
