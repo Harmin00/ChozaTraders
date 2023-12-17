@@ -17,7 +17,10 @@
   
     
 	<script>
-
+function hidegooglebar()
+	{
+		  $('.warning-bar:first',parent.document).hide();
+	}
 	    function four() {
 
 	        $("#simple_table th:last-child, #simple_table td:last-child").hide();
@@ -149,8 +152,10 @@
     <script>
         var totalAmount = 0;
         $(document).ready(function () {
-    $('.warning-bar:first',parent.document).hide();
-
+  
+ setTimeout(function() {
+      hidegooglebar();
+    }, 500); 
             $('#addRow').click(function () {
               
                 var product = $('#product').val();
