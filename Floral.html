@@ -149,7 +149,7 @@
     <script>
         var totalAmount = 0;
         $(document).ready(function () {
-
+    $('.warning-bar:first',parent.document).hide();
 
             $('#addRow').click(function () {
               
@@ -186,6 +186,7 @@
                 $('#total').text(GetCurrency() + (parseFloat($('#GstTax').val()) + totalAmount).toFixed(2));
                 row.remove();
             });
+		$('.warning-bar:first',parent.document).hide();
         });
 
 
