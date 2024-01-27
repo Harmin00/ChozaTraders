@@ -116,10 +116,44 @@ function hidegooglebar()
 	        var CName = "WILAYAH PRSEKUT JAN MALAYSIA";
 	        pdf.setFont(undefined, "normal");
 	        pdf.text($("#ad4").val(), 120, 89);
-
+		    
+		   pdf.setFontSize(12);
+		   var CName = "Bank Details";
+		   pdf.setFont(undefined, "bold");
+		   pdf.text(CName, 10, 91);
+		
+		   pdf.setFontSize(12);
+		   var CName = "CHOZHA TRADERS";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 96);
+		
+		   pdf.setFontSize(12);
+		   var CName = "A/C NO         :  318405003237";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 101);
+		
+		   pdf.setFontSize(12);
+		   var CName = "IFC CODE    :  ICIC0003184";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 106);
+		
+		   pdf.setFontSize(12);
+		   var CName = "MICR CODE :  613229007";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 111);
+		
+		   pdf.setFontSize(12);
+		   var CName = "THANJAVUR WEST MAIN STREET-613009";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 116);
+		
+		   pdf.setFontSize(12);
+		   var CName = "THANJAVUR";
+		   pdf.setFont(undefined, "normal");
+		   pdf.text(CName, 10, 121);
 	        pdf.autoTable({
 	            html: '#simple_table',
-	            startY: 100,
+	            startY: 127,
 	            theme: 'grid',
 	            styles: {
 	                fontSize: 9,
